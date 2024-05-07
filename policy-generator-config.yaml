@@ -1,0 +1,37 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-generator
+placementBindingDefaults:
+  name: my-placement-binding
+policyDefaults:
+  # categories: []
+  # complianceType: "musthave"
+  controls:
+    - PR.DS-1 Data-at-rest
+  namespace: my-policies
+  # Use an existing placement so that placement bindings can be consolidated
+  placement:
+    clusterSelectors:
+      matchExpressions:
+        - key: vendor
+          operator: In
+          values:
+            - OpenShift
+#    placementPath: placement.yaml
+  # Example of using labelSelector to generate a placement
+  # placement:
+  #   labelSelector:
+  #     matchLabels:
+  #       cloud: red hat
+  remediationAction: inform
+  severity: medium
+  # standards: []
+policies:
+- name: test-policy
+  description: keine ahnung
+  disabled: false
+  manifests:
+    - path: test.yaml
+  complianceType: "musthave"
+  remediationAction: inform
